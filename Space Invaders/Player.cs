@@ -24,7 +24,27 @@ namespace Space_Invaders
 
         public void FireBullet()
         {
-            //Tell the bullet class we fired a bullet
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                
+            }
+        }
+
+        public override void Update(GameTime gameTime, int rightSide)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                //_spriteLeft = true;
+                Position = new Vector2(Position.X - _spriteMovementX, Position.Y);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                //_spriteRight = true;
+                Position = new Vector2(Position.X + _spriteMovementX, Position.Y);
+            }
+
+            //base.Update(gameTime, rightSide);
+
         }
 
         public int Lives

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Space_Invaders
 {
@@ -8,12 +9,19 @@ namespace Space_Invaders
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Texture2D _playerTexture;
+        private Player myPlayer;
+        private Bullets myBullets;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            _graphics.PreferredBackBufferWidth = 800;
+            _graphics.PreferredBackBufferHeight = 800;
+
         }
 
         protected override void Initialize()
@@ -26,14 +34,19 @@ namespace Space_Invaders
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _playerTexture = Content.Load<Texture2D>("PlaceHolder");
 
-            // TODO: use this.Content to load your game content here
+            myPlayer = new Player(_playerTexture, 
+                new Vector2(_graphics.PreferredBackBufferHeight - _playerTexture.Height, _graphics.PreferredBackBufferWidth / 2 ), 
+                new Rectangle(), Color.Fuchsia);
         }
 
-        protected override void Update(GameTime gameTime)
+        protected void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            myPlayer.Update(gameTime, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferWidth);
 
             // TODO: Add your update logic here
 
@@ -42,9 +55,14 @@ namespace Space_Invaders
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Honeydew);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
+            myPlayer.Draw(_spriteBatch);
+            //myBullets.Draw(_spriteBatch);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
