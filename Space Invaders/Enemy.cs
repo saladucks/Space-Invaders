@@ -11,13 +11,19 @@ namespace Space_Invaders
 
         }
 
-        public Enemy(Texture2D spriteTexture, Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour)
-            : base(spriteTexture, spritePosition, spriteBoundingBox, spriteColour)
+        public Enemy(Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour)
+            : base(spritePosition, spriteBoundingBox, spriteColour)
         {
             _spriteBoundingBox = spriteBoundingBox;
-            _spriteTexture = spriteTexture;
             _spritePosition = spritePosition;
             _spriteColour = spriteColour;
+        }
+
+        
+
+        public void Update(GameTime gameTime, int rightSide)
+        {
+
         }
     }
 }

@@ -13,13 +13,12 @@ namespace Space_Invaders
         
         } 
 
-        public Player(Texture2D spriteTexture, Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour) 
-            : base(spriteTexture, spritePosition, spriteBoundingBox, spriteColour)
+        public Player(Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour) 
+            : base(spritePosition, spriteBoundingBox, spriteColour)
         {
             _spritePosition = spritePosition;
             _spriteBoundingBox = spriteBoundingBox;
             _spriteColour = spriteColour;
-            _spriteTexture = spriteTexture;
         }
 
         public void FireBullet()

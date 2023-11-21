@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace Space_Invaders
 {
@@ -12,6 +11,7 @@ namespace Space_Invaders
         private Texture2D _playerTexture;
         private Player myPlayer;
         private Bullets myBullets;
+        private Enemy[,] myEnemyArray;
 
         public Game1()
         {
@@ -20,7 +20,7 @@ namespace Space_Invaders
             IsMouseVisible = true;
 
             _graphics.PreferredBackBufferWidth = 800;
-            _graphics.PreferredBackBufferHeight = 800;
+            _graphics.PreferredBackBufferHeight = 950;
 
         }
 
@@ -28,25 +28,31 @@ namespace Space_Invaders
         {
             // TODO: Add your initialization logic here
 
+            myPlayer = new Player(new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight - 90),
+                new Rectangle(), Color.PaleVioletRed);
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _playerTexture = Content.Load<Texture2D>("PlaceHolder");
-
-            myPlayer = new Player(_playerTexture, 
-                new Vector2(_graphics.PreferredBackBufferHeight - _playerTexture.Height, _graphics.PreferredBackBufferWidth / 2 ), 
-                new Rectangle(), Color.Fuchsia);
+            
+            myPlayer.LoadContent(Content);
         }
 
-        protected void Update(GameTime gameTime)
+        public void SetEnemies()
+        {
+            myEnemyArray = new Enemy[]
+        }
+
+
+        protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            myPlayer.Update(gameTime, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferWidth);
+            myPlayer.Update(gameTime, _graphics.PreferredBackBufferHeight);
 
             // TODO: Add your update logic here
 
@@ -55,12 +61,14 @@ namespace Space_Invaders
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Honeydew);
+            GraphicsDevice.Clear(Color.LightPink);
 
             _spriteBatch.Begin();
 
             myPlayer.Draw(_spriteBatch);
             //myBullets.Draw(_spriteBatch);
+
+            
 
             _spriteBatch.End();
 

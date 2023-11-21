@@ -12,11 +12,10 @@ namespace Space_Invaders
 
         }
 
-        public Bullets(Texture2D spriteTexture, Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour)
-            : base(spriteTexture, spritePosition, spriteBoundingBox, spriteColour)
+        public Bullets(Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour)
+            : base(spritePosition, spriteBoundingBox, spriteColour)
         {
             _spriteBoundingBox = spriteBoundingBox;
-            _spriteTexture = spriteTexture;
             _spritePosition = spritePosition;
             _spriteColour = spriteColour;
         }
