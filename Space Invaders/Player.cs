@@ -13,20 +13,25 @@ namespace Space_Invaders
         
         } 
 
-        public Player(Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour) 
-            : base(spritePosition, spriteBoundingBox, spriteColour)
+        public Player(Texture2D spriteTexture, Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour) 
+            : base(spriteTexture, spritePosition, spriteBoundingBox, spriteColour)
         {
+            _spriteTexture = spriteTexture;
             _spritePosition = spritePosition;
             _spriteBoundingBox = spriteBoundingBox;
             _spriteColour = spriteColour;
         }
 
-        public void FireBullet()
+        public void FireBullet(GameTime gameTime, int rightSide)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            _currentKey = Keyboard.GetState();
+
+            if (_currentKey.IsKeyUp(Keys.Space) && _pastKey.IsKeyDown(Keys.Space))
             {
-                
+                _bulletFired = true;
             }
+
+            _pastKey = _currentKey;
         }
 
         public override void Update(GameTime gameTime, int rightSide)
@@ -36,6 +41,7 @@ namespace Space_Invaders
                 //_spriteLeft = true;
                 Position = new Vector2(Position.X - _spriteMovementX, Position.Y);
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 //_spriteRight = true;

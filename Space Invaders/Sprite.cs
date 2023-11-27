@@ -3,17 +3,26 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace Space_Invaders
 {
     public class Sprite : Game
     {
         protected Texture2D _spriteTexture;
+        public KeyboardState _currentKey;
+        public KeyboardState _pastKey;
         protected Vector2 _spritePosition;
         protected Rectangle _spriteBoundingBox;
         protected Color _spriteColour;
-        protected int _spriteMovementX = 5, _spriteMovementY = 5, _spriteMovementZ = 10;
-        protected bool _bulletFired = false;
+        protected int _spriteMovementX = 5, _spriteMovementY = 15;
+        public bool _bulletFired;
+        protected bool _bulletState;
+        public List<Bullets> _bulletFiredList = new List<Bullets>();
+
+        //public List<bool> _bulletStateList = new List<bool>();
+
+        //protected bool _spriteLeft = false, _spriteRight = false;
         //protected bool _spriteLeft = false, _spriteRight = false;
 
         public Sprite()
@@ -21,18 +30,14 @@ namespace Space_Invaders
 
         }
 
-        public Sprite(Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour)
+        public Sprite(Texture2D spriteTexture, Vector2 spritePosition, Rectangle spriteBoundingBox, Color spriteColour)
         {
+            _spriteTexture = spriteTexture;
             _spriteBoundingBox = spriteBoundingBox;
             _spritePosition = spritePosition;
             _spriteColour = spriteColour;
         }
 
-        public void LoadContent(ContentManager myContent)
-        {
-            myContent.RootDirectory = "Content";
-            _spriteTexture = myContent.Load<Texture2D>("Placeholder");
-        }
 
         public virtual void Update(GameTime gameTime,  int rightSide)
         {
