@@ -40,12 +40,6 @@ namespace Space_Invaders
                 _bulletFired = false;
             }
 
-            if (BoundingBox.Intersects(BoundingBox))
-            {
-
-
-
-            }
 
         }
 

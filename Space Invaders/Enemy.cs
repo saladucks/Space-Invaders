@@ -22,9 +22,12 @@ namespace Space_Invaders
 
         
 
-        public void Update(GameTime gameTime, int rightSide)
+        public void Update(GameTime gameTime, int rightSide, Bullets myBullet)
         {
+            if (BoundingBox.Intersects(myBullet.BoundingBox))
+            {
 
+            }
         }
     }
 }

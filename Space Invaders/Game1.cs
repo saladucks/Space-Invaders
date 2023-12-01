@@ -13,10 +13,12 @@ namespace Space_Invaders
         private int _playerPositionX, _playerPositionY;
         private Player myPlayer;
         private Bullets myBullets;
+        private Enemy myEnemy;
         private Enemy[,] myEnemyArray;
         private Texture2D _playerTexture;
         private Texture2D _bulletTexture;
         private Texture2D _enemyTexture;
+        private bool[,] enemyIsVisibleArray;
 
         public Game1()
         {
@@ -44,20 +46,20 @@ namespace Space_Invaders
 
             _playerTexture = Content.Load<Texture2D>("PlaceHolder");
             _bulletTexture = Content.Load<Texture2D>("BulletPlaceHolder");
-            _enemyTexture = Content.Load<Texture2D>("PlaceHolder");
+            _enemyTexture = Content.Load<Texture2D>("EnemyPlaceHolder");
 
             myPlayer = new Player(_playerTexture, new Vector2(_graphics.PreferredBackBufferWidth / 2 - _playerTexture.Width / 2, _graphics.PreferredBackBufferHeight - _playerTexture.Height),
             new Rectangle(), Color.PaleVioletRed);
 
             myBullets = new Bullets(_bulletTexture, new Vector2(_graphics.PreferredBackBufferWidth / 2 - 10 / 2, _graphics.PreferredBackBufferHeight - 10), 
-                new Rectangle(), Color.PaleVioletRed);
+                new Rectangle(), Color.MistyRose);
 
             SetEnemies();
         }
 
         public void SetEnemies()
         {
-            myEnemyArray = new Enemy[4,3];
+            myEnemyArray = new Enemy[6,3];
             int enemyPositionX = 0;
             int enemyPositionY = 0;
 
@@ -67,8 +69,8 @@ namespace Space_Invaders
                 {
                     enemyPositionX = i * _enemyTexture.Width;
                     enemyPositionY = j * _enemyTexture.Height;
-                    myEnemyArray[i, j] = new Enemy(_enemyTexture, new Vector2(enemyPositionX, enemyPositionY),
-                        new Rectangle(enemyPositionX, enemyPositionY, _enemyTexture.Width, _enemyTexture.Height), Color.LavenderBlush);
+                    myEnemyArray[i, j] = new Enemy(_enemyTexture, new Vector2(enemyPositionX + 30 + i * 40, enemyPositionY + 50 + j * 40),
+                        new Rectangle(enemyPositionX, enemyPositionY, _enemyTexture.Width, _enemyTexture.Height), Color.PaleVioletRed);
                 }
             }
         }
@@ -83,6 +85,8 @@ namespace Space_Invaders
             myPlayer.Update(gameTime, _graphics.PreferredBackBufferHeight);
 
             myBullets.Update(gameTime, _graphics.PreferredBackBufferHeight, myPlayer);
+
+            myEnemy.Update(gameTime, _graphics.PreferredBackBufferHeight, myBullet);
 
             // TODO: Add your update logic here
 
