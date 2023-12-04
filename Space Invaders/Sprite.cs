@@ -18,12 +18,6 @@ namespace Space_Invaders
         protected int _spriteMovementX = 5, _spriteMovementY = 15;
         public bool _bulletFired;
         protected bool _bulletState;
-        public List<Bullets> _bulletFiredList = new List<Bullets>();
-
-        //public List<bool> _bulletStateList = new List<bool>();
-
-        //protected bool _spriteLeft = false, _spriteRight = false;
-        //protected bool _spriteLeft = false, _spriteRight = false;
 
         public Sprite()
         {
