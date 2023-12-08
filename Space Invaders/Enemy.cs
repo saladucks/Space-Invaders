@@ -38,6 +38,8 @@ namespace Space_Invaders
                 if (BoundingBox.Intersects(myBullet.BoundingBox))
                 { 
                     IsDrawn = false;
+                    myBullet._bulletFired = false;
+                    myBullet.ResetBullet(/* somehow get the player in here*/);
                 }
             }
         }

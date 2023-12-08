@@ -19,7 +19,6 @@ namespace Space_Invaders
         private Texture2D _playerTexture;
         private Texture2D _bulletTexture;
         private Texture2D _enemyTexture;
-        public bool[,] enemyIsVisibleArray;
 
         public Game1()
         {
@@ -84,7 +83,7 @@ namespace Space_Invaders
                 Exit();
             myPlayer.Update(gameTime, _graphics.PreferredBackBufferHeight);
 
-            myBullet.Update(gameTime, _graphics.PreferredBackBufferHeight, myPlayer);
+            myBullet.Update(gameTime, _graphics.PreferredBackBufferHeight, myPlayer, myEnemyArray);
             myBullet.BoundingBox = new Rectangle((int)myBullet.Position.X, (int)myBullet.Position.Y, _bulletTexture.Width, _bulletTexture.Height);
 
             foreach (Enemy e in myEnemyArray)
@@ -113,15 +112,6 @@ namespace Space_Invaders
             myPlayer.Draw(_spriteBatch);
 
             myBullet.Draw(_spriteBatch);
-
-            for (int i = 0; i < myEnemyArray.GetLength(0); i++)
-            {
-                for (int j = 0; j < myEnemyArray.GetLength(1); j++)
-                {
-                    myEnemyArray[i, j].Draw(_spriteBatch);
-
-                }
-            }
 
             _spriteBatch.End();
 

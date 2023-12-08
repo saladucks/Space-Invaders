@@ -21,7 +21,12 @@ namespace Space_Invaders
             _spriteColour = spriteColour;
         }
 
-        public void Update(GameTime gameTime, int rightSide, Player myPlayer)
+        public void ResetBullet(Sprite owner)
+        {
+            Position = new Vector2(owner.Position.X + 195 / 2, owner.Position.Y);
+        }
+
+        public void Update(GameTime gameTime, int rightSide, Player myPlayer, Enemy[] myEnemyArray)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
@@ -39,7 +44,6 @@ namespace Space_Invaders
                 Position = new Vector2(myPlayer.Position.X + 195/2, myPlayer.Position.Y);
                 _bulletFired = false;
             }
-
 
         }
 
