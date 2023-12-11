@@ -24,11 +24,11 @@ namespace Space_Invaders
 
         public void FireBullet(GameTime gameTime, int rightSide)
         {
-            _currentKey = Keyboard.GetState();
+            _currentKey = Keyboard.GetState(); // sets pressed key to currentkey
 
-            if (_currentKey.IsKeyUp(Keys.Space) && _pastKey.IsKeyDown(Keys.Space))
+            if (_currentKey.IsKeyUp(Keys.Space) && _pastKey.IsKeyDown(Keys.Space)) // condition for if space is up and it was pressed down originally
             {
-                _bulletFired = true;
+                _bulletFired = true; // bullet is fired
             }
 
             _pastKey = _currentKey;
@@ -36,16 +36,16 @@ namespace Space_Invaders
 
         public override void Update(GameTime gameTime, int rightSide)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.A)) // condition for if A is pressed
             {
                 //_spriteLeft = true;
-                Position = new Vector2(Position.X - _spriteMovementX, Position.Y);
+                Position = new Vector2(Position.X - _spriteMovementX, Position.Y); // causes the player to move left
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.D)) // condition for if D is pressed
             {
                 //_spriteRight = true;
-                Position = new Vector2(Position.X + _spriteMovementX, Position.Y);
+                Position = new Vector2(Position.X + _spriteMovementX, Position.Y); // causes the player to move right
             }
 
             //base.Update(gameTime, rightSide);

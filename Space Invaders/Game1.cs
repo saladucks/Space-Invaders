@@ -44,33 +44,34 @@ namespace Space_Invaders
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _playerTexture = Content.Load<Texture2D>("PlaceHolder");
-            _bulletTexture = Content.Load<Texture2D>("BulletPlaceHolder");
-            _enemyTexture = Content.Load<Texture2D>("EnemyPlaceHolder");
+            _playerTexture = Content.Load<Texture2D>("PlaceHolder"); // loads player texture
+            _bulletTexture = Content.Load<Texture2D>("BulletPlaceHolder"); // loads bullet texture
+            _enemyTexture = Content.Load<Texture2D>("EnemyPlaceHolder"); // loads enemy texture
 
             myPlayer = new Player(_playerTexture, new Vector2(_graphics.PreferredBackBufferWidth / 2 - _playerTexture.Width / 2, _graphics.PreferredBackBufferHeight - _playerTexture.Height),
-            new Rectangle(), Color.PaleVioletRed);
+            new Rectangle(), Color.PaleVioletRed); // loads player
 
             myBullet = new Bullets(_bulletTexture, new Vector2(_graphics.PreferredBackBufferWidth / 2 - 10 / 2, _graphics.PreferredBackBufferHeight - 10), 
-                new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 10 / 2, _graphics.PreferredBackBufferHeight - 10, _bulletTexture.Width, _bulletTexture.Height), Color.MistyRose);
+                new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 10 / 2, _graphics.PreferredBackBufferHeight - 10, _bulletTexture.Width, _bulletTexture.Height),
+                Color.MistyRose); // loads bullet
 
-            SetEnemies();
+            SetEnemies(); // calls set enemies
         }
 
         public void SetEnemies()
         {
-            myEnemyArray = new Enemy[6,3];
-            int enemyPositionX = 0;
-            int enemyPositionY = 0;
+            myEnemyArray = new Enemy[6,3]; // creates new array
+            int enemyPositionX; // creates variable for the enemy's position on the x-axis
+            int enemyPositionY; // creates variable for the enemy's psoition on the y-axis
 
-            for (int i = 0; i < myEnemyArray.GetLength(0); i++)
+            for (int i = 0; i < myEnemyArray.GetLength(0); i++) // loops while i is smaller than the width of the array
             {
-                for (int j = 0; j < myEnemyArray.GetLength(1); j++)
+                for (int j = 0; j < myEnemyArray.GetLength(1); j++) // loops while j is smaller than the height of the array
                 {
-                    enemyPositionX = i * _enemyTexture.Width;
-                    enemyPositionY = j * _enemyTexture.Height;
+                    enemyPositionX = i * _enemyTexture.Width; // multiplies width of enemy by the number across the enemy is
+                    enemyPositionY = j * _enemyTexture.Height; // multiplies height of the enemy by the number down the enemy is
                     myEnemyArray[i, j] = new Enemy(_enemyTexture, new Vector2(enemyPositionX + 30 + i * 40, enemyPositionY + 50 + j * 40),
-                        new Rectangle(enemyPositionX + 30 + i * 40, enemyPositionY + 50 + j * 40, _enemyTexture.Width, _enemyTexture.Height), Color.PaleVioletRed, true);
+                        new Rectangle(enemyPositionX + 30 + i * 40, enemyPositionY + 50 + j * 40, _enemyTexture.Width, _enemyTexture.Height), Color.PaleVioletRed, true); // loads the enemies
                 }
             }
         }
@@ -81,14 +82,14 @@ namespace Space_Invaders
             
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            myPlayer.Update(gameTime, _graphics.PreferredBackBufferHeight);
+            myPlayer.Update(gameTime, _graphics.PreferredBackBufferHeight); // calls the update of the player
 
-            myBullet.Update(gameTime, _graphics.PreferredBackBufferHeight, myPlayer, myEnemyArray);
-            myBullet.BoundingBox = new Rectangle((int)myBullet.Position.X, (int)myBullet.Position.Y, _bulletTexture.Width, _bulletTexture.Height);
+            myBullet.Update(gameTime, _graphics.PreferredBackBufferHeight, myPlayer);
+            myBullet.BoundingBox = new Rectangle((int)myBullet.Position.X, (int)myBullet.Position.Y, _bulletTexture.Width, _bulletTexture.Height); // sets the bounding box for the bullet
 
-            foreach (Enemy e in myEnemyArray)
+            foreach (Enemy e in myEnemyArray) // cycles through every enemy in the array
             {
-                e.Update(gameTime, _graphics.PreferredBackBufferHeight, myBullet);
+                e.Update(gameTime, _graphics.PreferredBackBufferHeight, myBullet, myPlayer); // calls the update for every enemy
             }
             // TODO: Add your update logic here
 
@@ -97,21 +98,21 @@ namespace Space_Invaders
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.LightPink);
+            GraphicsDevice.Clear(Color.LightPink); // makes the background pink
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(); 
 
-            foreach (Enemy e in myEnemyArray)
+            foreach (Enemy e in myEnemyArray) // cycles through every enemy in the array
             {
-                if (e.IsDrawn)
+                if (e.IsDrawn) // condition for if the enemy is drawn
                 {
-                    e.Draw(_spriteBatch);
+                    e.Draw(_spriteBatch); // draws every enemy in enemy
                 }
             }
 
-            myPlayer.Draw(_spriteBatch);
+            myPlayer.Draw(_spriteBatch); // draws the player
 
-            myBullet.Draw(_spriteBatch);
+            myBullet.Draw(_spriteBatch); // draws the bullet
 
             _spriteBatch.End();
 

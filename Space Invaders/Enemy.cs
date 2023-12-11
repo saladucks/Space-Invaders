@@ -31,15 +31,15 @@ namespace Space_Invaders
             set { _isDrawn = value; }
         }
 
-        public void Update(GameTime gameTime, int rightSide, Bullets myBullet)
+        public void Update(GameTime gameTime, int rightSide, Bullets myBullet, Player myPlayer)
         {
-            if (IsDrawn)
+            if (IsDrawn) // condition for if the enemy is drawn
             {
-                if (BoundingBox.Intersects(myBullet.BoundingBox))
+                if (BoundingBox.Intersects(myBullet.BoundingBox)) // condition for if the bullet and enemy are intersecting
                 { 
-                    IsDrawn = false;
-                    myBullet._bulletFired = false;
-                    myBullet.ResetBullet(/* somehow get the player in here*/);
+                    IsDrawn = false; // sets isDrawn to false
+                    myBullet._bulletFired = false; // sets _bulletFired to false
+                    myBullet.ResetBullet(myPlayer); // calls ResetBullet
                 }
             }
         }
