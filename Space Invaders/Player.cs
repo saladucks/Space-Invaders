@@ -42,7 +42,7 @@ namespace Space_Invaders
                 Position = new Vector2(Position.X - _spriteMovementX, Position.Y); // causes the player to move left
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D)) // condition for if D is pressed
+            if (Keyboard.GetState().IsKeyDown(Keys.D)) // condition for if D is pressed    
             {
                 //_spriteRight = true;
                 Position = new Vector2(Position.X + _spriteMovementX, Position.Y); // causes the player to move right

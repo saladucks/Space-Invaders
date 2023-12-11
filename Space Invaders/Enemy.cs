@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct2D1;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Space_Invaders
 {
@@ -31,7 +32,7 @@ namespace Space_Invaders
             set { _isDrawn = value; }
         }
 
-        public void Update(GameTime gameTime, int rightSide, Bullets myBullet, Player myPlayer)
+        public void Update(GameTime gameTime, int rightSide, Bullets myBullet, Player myPlayer, int time)
         {
             if (IsDrawn) // condition for if the enemy is drawn
             {
@@ -41,7 +42,15 @@ namespace Space_Invaders
                     myBullet._bulletFired = false; // sets _bulletFired to false
                     myBullet.ResetBullet(myPlayer); // calls ResetBullet
                 }
+
+                if (time != 0 && time % 100 == 0)
+                {
+                    Position = new Vector2(Position.X + 40, Position.Y);
+                }
             }
+
+
+
         }
     }
 }

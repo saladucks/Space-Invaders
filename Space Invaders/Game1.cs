@@ -14,11 +14,12 @@ namespace Space_Invaders
         private int _playerPositionX, _playerPositionY;
         private Player myPlayer;
         private Bullets myBullet;
-        private Enemy myEnemy;
+        private int _enemyMovementX = 5, _enemyMovementY = 5;
         private Enemy[,] myEnemyArray;
         private Texture2D _playerTexture;
         private Texture2D _bulletTexture;
         private Texture2D _enemyTexture;
+        public int time = 0;
 
         public Game1()
         {
@@ -70,6 +71,7 @@ namespace Space_Invaders
                 {
                     enemyPositionX = i * _enemyTexture.Width; // multiplies width of enemy by the number across the enemy is
                     enemyPositionY = j * _enemyTexture.Height; // multiplies height of the enemy by the number down the enemy is
+
                     myEnemyArray[i, j] = new Enemy(_enemyTexture, new Vector2(enemyPositionX + 30 + i * 40, enemyPositionY + 50 + j * 40),
                         new Rectangle(enemyPositionX + 30 + i * 40, enemyPositionY + 50 + j * 40, _enemyTexture.Width, _enemyTexture.Height), Color.PaleVioletRed, true); // loads the enemies
                 }
@@ -89,9 +91,11 @@ namespace Space_Invaders
 
             foreach (Enemy e in myEnemyArray) // cycles through every enemy in the array
             {
-                e.Update(gameTime, _graphics.PreferredBackBufferHeight, myBullet, myPlayer); // calls the update for every enemy
+                e.Update(gameTime, _graphics.PreferredBackBufferHeight, myBullet, myPlayer, time); // calls the update for every enemy
             }
             // TODO: Add your update logic here
+
+            time = time + 1; // increases time by 1
 
             base.Update(gameTime);
         }
